@@ -1,0 +1,224 @@
+
+Name:neelam Makwana
+Last 4 digits ID:
+Computer IP address:
+CSE 6331, Cloud Computing					
+
+
+Quiz Q2 Rerun (Replay), Spring 2020   (c) DL, UTA, 2020
+
+PLEASE NOTE THE MODIFICATIONS AT THE END OF THIS QUIZ. QUESTION 9 AND 10 HAVE BEEN SLIGHTLY MODIFIED.
+
+  C&P means cut and paste only those relevant lines from your program(s) into this quiz.
+
+
+ 1.  I understand that I am on my honor during this quiz, I will not collaborate, use 
+     non-allowed sources, and I will not discuss or share this quiz with anyone for the next 
+     4 hours.
+     You MAY: use Google to search, use previous source code, 
+     YOU MAY NOT use:
+     Email, Facebook, Hangouts, IM, chats, Skype or ANY other human connection.
+
+     This is a timed test. Late tests will have points deducted for being late.
+     Very late tests will not be graded.
+
+     When you are complete, with any part, please raise your hand, so we may visually inspect that part.
+
+     The second part of the test, you should electronically submit, you will need to copy and paste 
+     only those lines of code to implement that part of the test, usually a few (two to eight) lines of code. 
+     Place it immediately after the question.
+
+     Submit this Quiz (renamed) with code cut and pasted, ONLY text. DO NOT submit zips, binaries, libraries,
+     or anything other than text.
+
+     When any parts(questions) are complete complete, submit this test, you may make multiple submissions.
+
+     If you have computer, or other, problems, please raise your hand immediately.
+
+     If you understand and agree, please initial here:
+     _________________
+
+ 2. Get files from this same folder.
+   
+ 3. Name your program/submission with your name and last digits of your ID.
+
+ 4. Using the cloud services provider, all functionality possible should be implemented on that provider.
+    (Of course, displaying web pages through a browser and the user interface is "local")
+
+Show and submit code:
+
+ 5. Show a web page and interface (which resides on the cloud provider) with your name and 
+    student ID in large font at the top of every web page dispayed (for this quiz)
+    The cloud service provider is IBM Cloud (BlueMix). Only show (demo) this seperately if you are not 
+    showing any of the next parts. 
+     <h1> Makwana, Neelam </h1>
+      <h1> 1001453836 </h1>
+    
+
+ 6. Import quakes.csv and latlong.csv into tables in a Relational Data Base (SQL), if you have already done this, 
+    (briefly) explain/describe how you did this. Please note that for some parts of the following you will need 
+    to create indexes (keys) appropriately. Please do not change the values in latitude and longitude.
+
+     if request.method == 'POST':
+        con = sql.connect("database.db")
+        csv = request.files['myfile']
+        file = pd.read_csv(csv)
+        file.to_sql('ALL_MONTH', con, schema=None, if_exists='replace', index=True, index_label=None, chunksize=None, dtype=None)
+        con.close()
+
+ 7. Allow a user, through a web form, to give a two letter country code and display, on a web page, the name of that
+    country as well as the latitude and longitude.
+
+        <fieldset>
+        <h2>Search for country name</h2><br><br>
+        <form method="POST" action="{{url_for('search')}}" enctype="multipart/form-data">
+            <td>Enter a countrycode1: <input type="text" name="cd1"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+@app.route('/search',methods=['GET', 'POST'])
+def search():
+    try:
+        cd1 = request.form['cd1']
+        sql = "Select LATITUDE, LONGITUDE, NAME from LATLONG WHERE \"COUNTRY\" = ? "
+        # sql = "Select * from ALL_MONTH"
+        select_Stmt = ibm_db.prepare(conn, sql)
+        ibm_db.bind_param(select_Stmt,1,cd1)
+        ibm_db.execute(select_Stmt)
+        result = ibm_db.fetch_assoc(select_Stmt)
+        row = []
+        while result != False:
+            row.append(result.copy())
+            result = ibm_db.fetch_assoc(select_Stmt)
+        return render_template("search.html", row=row)
+
+    except:
+        #print "Exception Occured in Display Method"
+        return render_template("main.html")
+        
+ 8. Allow a user, through a web form, to give a two latitude and longitude pairs, which form a "box" 
+    (for example upper left and lower right "corners") and display the names of all coutries within 
+    that "bounding" box.
+
+  <fieldset>
+        <h2>Search for countrycode</h2><br><br>
+        <form method="POST" action="{{url_for('searchincountryname')}}" enctype="multipart/form-data">
+            <td>latitude1 <input type="text" name="latitude1"></td>
+            <td>longitude1 <input type="text" name="longitude1"></td><br>
+            <td>latitude2 <input type="text" name="latitude2"></td>
+            <td>longitude2 <input type="text" name="longitude2"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+
+@app.route('/searchincountryname',methods=['GET','POST'])
+
+def searchincountryname(latitude1=None,longitude1=None,latitude2=None,longitude2=None):
+    try:
+        longitude1 = float(request.form['longitude1'])
+        latitude1 = float(request.form['latitude1'])
+        longitude2 = float(request.form['longitude2'])
+        latitude2 = float(request.form['latitude2'])
+
+
+        Query_1="select NAME from LATLONG where \"LATITUDE\" BETWEEN ? and ? and \"LONGITUDE\" BETWEEN ? and ? "
+
+        select_Stmt = ibm_db.prepare(conn, Query_1)
+        ibm_db.bind_param(select_Stmt, 1, str(latitude1))
+        ibm_db.bind_param(select_Stmt, 2, str(latitude2))
+        ibm_db.bind_param(select_Stmt, 3, str(longitude1))
+        ibm_db.bind_param(select_Stmt, 4, str(longitude2))
+
+        ibm_db.execute(select_Stmt)
+        row=[]
+
+        result = ibm_db.fetch_assoc(select_Stmt)
+
+        while result:
+            row.append(result)
+            result = ibm_db.fetch_assoc(select_Stmt)
+        return render_template('searchincountryname.html', row=row)
+
+    except:
+        # print "Exception Occured in Display Method"
+        return render_template("main.html")
+
+ 9. Allow a user, through a web form, to give a two latitude and longitude pairs, which form a "box" 
+    (for example upper left and lower right "corners") and a magnitude and for all earthquakes within that
+    "bounding" box, that are greater than (or equal to) that magnitude, display the place, then the latitude, 
+    longitude, and time for all quakes within that "bounding" box.
+
+ 10. Allow a user, through a web form, to give a nst range (for example 10 to 100), as well as  
+     two latitude and longitude pairs, ("box") and for magnitudes between 1 and 20, display the number 
+     of quakes in intervals of 1, that is the number of quakes from 1 to 2, 2 to 3, etc, up to 19 to 20.
+
+ <fieldset>
+       <h2>Search with Nst and Magnitude</h2><br><br>
+        <form method="POST" action="{{url_for('nstmagrange')}}" enctype="multipart/form-data">
+            <td>latitude1: <input type="text" name="latitude_1"></td>
+            <td>longitude1: <input type="text" name="longitude_1"></td><br>
+            <td>latitude2: <input type="text" name="latitude_2"></td>
+            <td>longitude2: <input type="text" name="longitude_2"></td><br>
+            <td>Magnitude to: <input type="text" name="magStart"></td>
+              <td>Magnitude from: <input type="text" name="magEnd"></td><br>
+             <td>Nst to: <input type="text" name="nstrange1"></td>
+              <td>Nst from: <input type="text" name="nstrange2"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+@app.route("/nstmagrange", methods=["POST", "GET"])
+def nstmagrange():
+    type = "earthquake"
+    latitude_1 = request.form['latitude_1']
+    longitude_1 = request.form['longitude_1']
+    latitude_2 = request.form['']
+    longitude_2 = request.form['longitude_2']
+    magStart = float(request.form['magStart'])
+    magEnd = float(request.form['magEnd'])
+    nstrange1 = request.form['nstrange1']
+    nstrange2 = request.form['nstrange2']
+    start = magStart
+    counts = []
+    starts = []
+    ends = []
+    end = start + 1
+    while end <= magEnd:
+        end = start + 1
+        selectQuery = "SELECT * from QUAKES where LATITUDE BETWEEN '"+ latitude_1 + "' AND '"+ latitude_2 + "' AND LONGITUDE BETWEEN '"+ latitude_2 +"' AND '"+ longitude_2 + "' and MAG >= '"+ str(start) +"' AND MAG <= '" + str(end)+"' AND NST BETWEEN '"+ nstrange1 +"' AND '"+ nstrange2 + "'"
+        selectStmt = ibm_db.exec_immediate(conn, selectQuery)
+        rows = []
+        count = 0
+        result = ibm_db.fetch_assoc(selectStmt)
+        starts.append(start)
+        ends.append(end)
+    while result != False:
+        count = count + 1
+        rows.append(result.copy())
+        result = ibm_db.fetch_assoc(selectStmt)
+        counts.append(count)
+        start = end
+        length = len(starts)
+
+    return render_template('nstmagrange.html', starts=starts,ends=ends,counts=counts,length=length)
+
+
+ 11. Show GTA parts (5, 6 not necessary), 7, 8, 9, 10
+     (as soon as you complete any part.)
+
+ 12. When complete, return (send) this quiz
+     If you finish early, send this immediately, otherwise send between
+     the end of class and no more than 1 minute after that.
+
+ NEW-NEW-NEW
+  5. and 6. Do NOT show, UNLESS those are the only parts completed.
+  7. and 8. Use the latlong.csv import into SQL.
+  9. Modify: Given a single latitude and longitude, as well as as X, and Y values (which are added to lat and long
+       values to form a bounding box, they will be in kilometers, and may be positive or negative),
+       and a magnitude, display as in original question. 
+  10. Given a bounding box, as in the previous question (9, above),
+        as well as a magnitude range (for example, from 2 to 5), show ALL quakes in intervals of 1, (for this example
+        for 2 to 3, 3 to 4, 4 to 5).
+  
+ Good Luck!

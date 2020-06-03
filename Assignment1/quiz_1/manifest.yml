@@ -1,0 +1,4 @@
+  applications:
+  - name: people-gpq
+    random-route: true
+    memory: 64M

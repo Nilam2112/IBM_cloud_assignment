@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+<head>
+<link href="styles.css" rel="stylesheet">
+</head>
+	<body>
+		
+      <h1> 1001453836 </h1>
+      <h1> Makwana, Neelam </h1>
+
+		<br> <br>
+
+        <table>
+           <tr>
+               <th> Time </th>
+                  <th> Latitude </th>
+                  <th> Longitude </th>
+                  <th> Depth </th>
+                  <th> Magnitude </th>
+                  <th> Magnitude Type </th>
+                  <th> NST </th>
+                  <th> Gap </th>
+                  <th> DMin </th>
+                  <th> RMS </th>
+                  <th> Net </th>
+                  <th> ID </th>
+                  <th> Updated </th>
+                  <th> Place </th>
+                  <th> Type </th>
+                  <th> Horizontal Error </th>
+                  <th> Depth Error </th>
+                  <th> Magnitude Error </th>
+                  <th> Magnitude NST </th>
+                  <th> Status </th>
+                  <th> Location Source </th>
+                  <th> Magnitude Source </th>
+            </tr>
+            {% for row in row %}
+                <tr>
+                  <td>
+                        {{row['TIME']}}
+
+                    </td>
+                    <td>
+                        {{row['LATITUDE']}}
+                    </td>
+                    <td>
+                        {{row['LONGITUDE']}}
+                    </td>
+                    <td>
+                        {{row['DEPTH']}}
+                    </td>
+                    <td>
+                        {{row['MAG']}}
+                    </td>
+                    <td>
+                        {{row['MAGTYPE']}}
+                    </td>
+                    <td>
+                        {{row['NST']}}
+                    </td>
+                    <td>
+                        {{row['GAP']}}
+                    </td>
+                    <td>
+                        {{row['DMIN']}}
+                    </td>
+                    <td>
+                        {{row['RMS']}}
+                    </td>
+                    <td>
+                        {{row['NET']}}
+                    </td>
+                    <td>
+                        {{row['ID']}}
+                    </td>
+                    <td>
+                        {{row['UPDATED']}}
+                    </td>
+                    <td>
+                        {{row['PLACE']}}
+                    </td>
+                    <td>
+                            {{row['TYPE']}}
+                    </td>
+                    <td>
+                            {{row['HORIZONTALERROR']}}
+                    </td>
+                    <td>
+                            {{row['DEPTHERROR']}}
+                    </td>
+                    <td>
+                            {{row['MAGERROR']}}
+                    </td>
+                    <td>
+                            {{row['MAGNST']}}
+                    </td>
+                    <td>
+                            {{row['STATUS']}}
+                    </td>
+                    <td>
+                            {{row['LOCATIONSOURCE']}}
+                    </td>
+                    <td>
+                            {{row['MAGSOURCE']}}
+                    </td>
+
+                </tr>
+
+
+            {% endfor %}
+        </table>
+	</body>
+</html>

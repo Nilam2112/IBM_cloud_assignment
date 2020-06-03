@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+<link href="styles.css" rel="stylesheet">
+</head>
+	<body>
+		
+      <h1> 1001453836 </h1>
+      <h1> Makwana, Neelam </h1>
+
+		<br> <br>
+
+<!--        <table>-->
+<!--            <tr>-->
+
+
+<!--                <th>Place</th>-->
+<!--                 <th>latitude</th>-->
+<!--                 <th>longitude</th>-->
+<!--                 <th>time</th>-->
+
+
+<!--            </tr>-->
+<!--            {% for row in row %}-->
+<!--                <tr>-->
+
+
+<!--                    <td>-->
+<!--                        {{row['PLACE']}}-->
+
+<!--                    </td>-->
+<!--                     <td>-->
+<!--                        {{row['LATITUDE']}}-->
+
+<!--                    </td>-->
+<!--                     <td>-->
+<!--                        {{row['LONGITUDE']}}-->
+
+<!--                    </td>-->
+<!--                     <td>-->
+<!--                        {{row['TIME']}}-->
+
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tr>-->
+
+<!--            {% endfor %}-->
+<!--        </table>-->
+    <table>
+            <tr>
+                <th>Number of Earthquakes</th>
+            </tr>
+
+            {% for row in row %}
+            <tr>
+                <td>
+                        {{row['1']}}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+	</body>
+</html>

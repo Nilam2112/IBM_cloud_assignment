@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+
+<head>
+<link href="styles.css" rel="stylesheet">
+</head>
+	<body>
+		
+      <h1> 1001453836 </h1>
+      <h1> Makwana, Neelam </h1>
+
+		<br> <br>
+
+        <table>
+           <tr>
+                <th>time</th>
+                <th>latitude</th>
+                <th>longitude</th>
+                <th>depth</th>
+                <th>mag</th>
+                <th>nst</th>
+                <th>gap</th>
+                <th>dmin</th>
+                <th>rms</th>
+                <th>net</th>
+                <th>id</th>
+                <th>place</th>
+                <th>horizontalError</th>
+                <th>magNst</th>
+                <th>locationSource</th>
+
+
+            </tr>
+            {% for res in rows %}
+                <tr>
+                    <td>
+                        {{rows['TIME']}}
+
+                    </td>
+                    <td>
+                        {{rows['LATITUDE']}}
+                    </td>
+                    <td>
+                        {{rows['LONGITUDE']}}
+                    </td>
+                    <td>
+                        {{rows['DEPTH']}}
+                    </td>
+                    <td>
+                        {{rows['MAG']}}
+                    </td>
+
+                    <td>
+                        {{rows['NST']}}
+                    </td>
+                    <td>
+                        {{rows['GAP']}}
+                    </td>
+                    <td>
+                        {{rows['DMIN']}}
+                    </td>
+                    <td>
+                        {{rows['RMS']}}
+                    </td>
+                    <td>
+                        {{rows['NET']}}
+                    </td>
+                    <td>
+                        {{rows['ID']}}
+                    </td>
+
+                    <td>
+                        {{rows['PLACE']}}
+                    </td>
+
+                    <td>
+                            {{rows['HORIZONTALERROR']}}
+                    </td>
+
+                    <td>
+                            {{rows['MAGNST']}}
+                    </td>
+
+                    <td>
+                            {{rows['LOCATIONSOURCE']}}
+                    </td>
+
+
+                </tr>
+
+
+            {% endfor %}
+        </table>
+
+<!--    <p>No. of earthquakes: {{count}}</p>-->
+
+	</body>
+</html>

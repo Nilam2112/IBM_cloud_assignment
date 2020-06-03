@@ -1,0 +1,40 @@
+
+
+Q8) For search of country code:
+Latitude1: 17.901
+Latitude2:42.733883
+Longitude1: --66.9046
+Longitude2:-63.068615
+
+q9) For search with magnitude:
+Latitude1: 35.3415
+Latitude2:59.1453
+Longitude1: -153.2325
+Longitude2:-117.7726667
+
+Search with radius: 
+Latitude1: 19.1901665
+Longitude2:-155.4459991
+Radius:69
+
+Search with Not and magnitude:
+Latitude1: 17
+Latitude2:59
+Longitude1: -180
+Longitude2:-63
+Maggto:2
+Magfrom:3
+Nstto:10
+Nstfrom:100
+
+A 3) where is closest quake with mag >6
+latitude: 19.1901665
+longitude: -155.4459991
+distance: 3
+magnitude: 1
+
+date and mag range
+startdate:2020-02-17T16:53:51.660Z
+Enddate:2020-02-17T17:23:55.930Z
+Maggto:1.49
+Mag from:2.01

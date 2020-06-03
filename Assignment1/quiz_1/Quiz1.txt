@@ -1,0 +1,146 @@
+
+Name:neelam  Makwana
+Last 4 digits ID:
+Computer IP address:
+CSE 6331, Cloud Computing					
+
+
+Quiz Q1, Spring 2020   (c) DL, UTA, 2020
+
+
+  C&P means cut and paste only those relevant lines from your program(s) into this quiz.
+
+
+ 1.  I understand that I am on my honor during this quiz, I will not collaborate, use 
+     non-allowed sources, and I will not discuss or share this quiz with anyone for the next 
+     6 hours.
+     You MAY: use Google to search, use previous source code, 
+     YOU MAY NOT use:
+     Email, Facebook, Hangouts, IM, chats, Skype or ANY other human connection.
+
+     This is a timed test. Late tests will have points deducted for being late.
+     Very late tests will not be graded.
+
+     When you are complete, with any part, please raise your hand, so we may visually inspect that part.
+
+     The second part of the test, you should electronically submit, you will need to copy and paste 
+     only those lines of code to implement that part of the test, usually a few (two to eight) lines of code. 
+     Place it immediately after the question.
+
+     Submit this Quiz (renamed) with code cut and pasted, ONLY text. DO NOT submit zips, binaries, libraries,
+     or anything other than text.
+
+     When any parts(questions) are complete complete, submit this test, you may make multiple submissions.
+
+     If you have computer, or other, problems, please raise your hand immediately.
+
+     If you understand and agree, please initial here:
+     _________________
+
+ 2. Get files from this same folder.
+   
+ 3. Name your program/submission with your name and last digits of your ID.
+
+ 4. Using the cloud services provider, all functionality possible should be implemented on that provider.
+    (Of course, displaying web pages through a browser and the user interface is "local")
+
+Show and submit code:
+
+ 5. Show a web page and interface (which resides on the cloud provider) with your last name 
+    (as on your student ID) first followed by your first name and above that your student ID in large font 
+    at the top of every web page dispayed (for this quiz)
+    You don't need to show this, show for next part.
+    The cloud service provider is IBM Cloud (BlueMix). 
+
+  <div class="container">
+      
+     <h1> 1001453836 </h1>
+      <h1> Makwana, Neelam Bhimjibhai  </h1>
+
+
+ 6. Upload all data files to cloud service (not including this quiz text file) that is, all *jpg and 
+    the "data.csv" file (which contains information about the pictures, owners, and similar, and the "text" file, 
+    then show the names of all of the files, their time (as on the cloud provider), and their sizes (stored on cloud) 
+    on your screen.
+
+   cos://us-south/cloudquiz1
+
+
+ 7. Allow user to select (or enter) a name and show the corresponding picture (or show "no picture available").
+
+@app.route("/show", methods=["POST", "GET"])
+def show():
+    name = request.form.get("name")
+    query1 = "SELECT PIC FROM DATA WHERE NAME = '" + str(name) + "'"
+    stmt1 = ibm_db.exec_immediate(conn, query1)
+    result = ibm_db.fetch_both(stmt1)
+    while result:
+        photo = result[0]
+        result = ibm_db.fetch_both(stmt1)
+
+    return render_template('show.html', filename=photo, name=name, title='Show')
+
+
+<form action="/show" method="POST" >
+        <label> Name: </label> <input type="text" name="name" > 
+        <input type="submit" value="Display image">
+      </form>
+      <br>
+     
+ 8. Allow a user to give an owner (numeric) range and show names and photos of all matching.
+
+@app.route("/withinrange", methods=["POST", "GET"])
+def withinrange():
+    range1 = request.form.get("range1")
+    range2 = request.form.get("range2")
+    range_data = []
+    query1 = "SELECT PIC,NAME FROM DATA WHERE OWNER BETWEEN '" + str(range1) + "' AND '" + str(range2)+"'"
+    stmt1 = ibm_db.exec_immediate(conn, query1)
+    result = ibm_db.fetch_both(stmt1)
+    while result:
+        range_data.append(result)
+        result = ibm_db.fetch_both(stmt1)
+
+    return render_template('withinrange.html', table=range_data, title='Within Range')
+
+       <form action="/withinrange" method="POST" >
+        <label> Owner: From: </label> <input type="number" name="range1" pattern="^[0-9]$"> 
+        <label> To: </label> <input type="number" name="range2" pattern="^[0-9]$"> 
+        <input type="submit" value="Search"> 
+      </form>
+      <br>
+
+ 9. Allow a user to select a name and then change the picture.
+
+
+@app.route("/insert", methods=["POST", "GET"])
+def insert():
+    name = request.form.get("name")
+    file = request.form['file']
+    query1 = "UPDATE DATA SET PIC = '" + str(file) + "' WHERE NAME = '" + str(name) + "'"
+    stmt1 = ibm_db.exec_immediate(conn, query1)
+    print(stmt1)
+
+    return render_template('insert.html', filename=file, title='Add/Insert')
+
+
+<form action="/insert" method="POST" >
+        <label> Name: </label> <input type="text" name="name" >
+        <label> Image: </label> <input type="file" name="file" accept="image/*"> 
+        <input type="submit" name="upload" value="Update Picture">
+      </form>
+
+ 10. On the screen, show the contents of the file "text".
+
+file1 = open("text.txt","r")     
+    if file1.mode == "r":
+        contents =file1.read()
+        print(contents)
+
+
+ 11. Show GTA parts 6, 7, 8, 9, 10
+
+ 12. When complete, return (send) this quiz
+     If you finish early, send this immediately, otherwise send between
+     the end of class and no more than 1 minute after that.
+

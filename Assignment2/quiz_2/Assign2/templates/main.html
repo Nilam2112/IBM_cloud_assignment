@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet">
+
+    {% if title %}
+      <title>{{ title }}</title>
+    {% else %}
+      <title>Home</title>
+    {% endif %}
+
+  </head>
+  <body>
+    <div class="container">
+
+      <h1> 1001453836 </h1>
+      <h1> Makwana, Neelam </h1>
+
+      <br>
+      <br>
+
+<!--     <center>-->
+<!--      {#{% if table is not None %}#}-->
+<!--          <table>-->
+<!--            <thead>-->
+<!--                  <th> Time </th>-->
+<!--                  <th> Latitude </th>-->
+<!--                  <th> Longitude </th>-->
+<!--                  <th> Depth </th>-->
+<!--                  <th> Magnitude </th>-->
+<!--                  <th> Magnitude Type </th>-->
+<!--                  <th> NST </th>-->
+<!--                  <th> Gap </th>-->
+<!--                  <th> DMin </th>-->
+<!--                  <th> RMS </th>-->
+<!--                  <th> Net </th>-->
+<!--                  <th> ID </th>-->
+<!--                  <th> Updated </th>-->
+<!--                  <th> Place </th>-->
+<!--                  <th> Type </th>-->
+<!--                  <th> Horizontal Error </th>-->
+<!--                  <th> Depth Error </th>-->
+<!--                  <th> Magnitude Error </th>-->
+<!--                  <th> Magnitude NST </th>-->
+<!--                  <th> Status </th>-->
+<!--                  <th> Location Source </th>-->
+<!--                  <th> Magnitude Source </th>-->
+<!--            </thead>-->
+
+<!--            <tbody>-->
+<!--              {% for value in table %}-->
+<!--            <tr>-->
+<!--                  <td> {{ value[0] }} </td>-->
+<!--                  <td> {{ value[1] }} </td>-->
+<!--                  <td> {{ value[2] }} </td>-->
+<!--                  <td> {{ value[3] }} </td>-->
+<!--                  <td> {{ value[4] }} </td>-->
+<!--                  <td> {{ value[5] }} </td>-->
+<!--                  <td> {{ value[6] }} </td>-->
+<!--                  <td> {{ value[7] }} </td>-->
+<!--                  <td> {{ value[8] }} </td>-->
+<!--                  <td> {{ value[9] }} </td>-->
+<!--                  <td> {{ value[10] }} </td>-->
+<!--                  <td> {{ value[11] }} </td>-->
+<!--                  <td> {{ value[12] }} </td>-->
+<!--                  <td> {{ value[13] }} </td>-->
+<!--                  <td> {{ value[14] }} </td>-->
+<!--                  <td> {{ value[15] }} </td>-->
+<!--                  <td> {{ value[16] }} </td>-->
+<!--                  <td> {{ value[17] }} </td>-->
+<!--                  <td> {{ value[18] }} </td>-->
+<!--                  <td> {{ value[19] }} </td>-->
+<!--                  <td> {{ value[20] }} </td>-->
+<!--                  <td> {{ value[21] }} </td>-->
+<!--                -->
+<!--                   -->
+<!--                  -->
+<!--            </tr>-->
+<!--              {% endfor %}-->
+<!--            </tbody>-->
+<!--          </table>-->
+<!--      {#{% else %}#}-->
+<!--          {#<div>No data available</div>#}-->
+<!--      {#{% endif %}#}-->
+<!--        </center>-->
+
+  <br>
+
+       <fieldset>
+        <h2>mag greater than </h2><br><br>
+        <form method="POST" action="{{url_for('mag_greater')}}" enctype="multipart/form-data">
+            <td>magnitude: <input type="text" name="mag_1"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+      <fieldset>
+       <h2>mag, range </h2><br><br>
+        <form method="POST" action="{{url_for('mag_range')}}" enctype="multipart/form-data">
+            <td>magto: <input type="text" name="magto"></td>
+             <td>magfrom: <input type="text" name="magfrom"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+
+        <fieldset>
+        <h2>Search for country name</h2><br><br>
+        <form method="POST" action="{{url_for('search')}}" enctype="multipart/form-data">
+            <td>Enter a countrycode1: <input type="text" name="cd1"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+
+        <fieldset>
+        <h2>Search for countrycode</h2><br><br>
+        <form method="POST" action="{{url_for('searchincountryname')}}" enctype="multipart/form-data">
+            <td>latitude1 <input type="text" name="latitude1"></td>
+            <td>longitude1 <input type="text" name="longitude1"></td><br>
+            <td>latitude2 <input type="text" name="latitude2"></td>
+            <td>longitude2 <input type="text" name="longitude2"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+
+        <fieldset>
+       <h2>Search with Magnitude</h2><br><br>
+        <form method="POST" action="{{url_for('searchwithmag')}}" enctype="multipart/form-data">
+            <td>latitude1: <input type="text" name="latitude1"></td>
+            <td>longitude1: <input type="text" name="longitude1"></td><br>
+            <td>latitude2: <input type="text" name="latitude2"></td>
+            <td>longitude2: <input type="text" name="longitude2"></td>
+            <td>Magnitude: <input type="text" name="mag"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+          <fieldset>
+       <h2>Search With radius</h2><br><br>
+        <form method="POST" action="{{url_for('searchwithradius')}}" enctype="multipart/form-data">
+            <td>latitude: <input type="text" name="latitude"></td>
+            <td>longitude: <input type="text" name="longitude"></td>
+            <td>radius: <input type="text" name="radius"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+     <fieldset>
+       <h2>Search with Nst and Magnitude</h2><br><br>
+        <form method="POST" action="{{url_for('nstmagrange')}}" enctype="multipart/form-data">
+            <td>latitude1: <input type="text" name="latitude1"></td>
+            <td>longitude1: <input type="text" name="longitude1"></td><br>
+            <td>latitude2: <input type="text" name="latitude2"></td>
+            <td>longitude2: <input type="text" name="longitude2"></td><br>
+            <td>Magnitude to: <input type="text" name="magStart"></td>
+              <td>Magnitude from: <input type="text" name="magEnd"></td><br>
+             <td>Nst to: <input type="text" name="nstrange1"></td>
+              <td>Nst from: <input type="text" name="nstrange2"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+        <fieldset>
+       <h2>How many quakes withing about 200km</h2><br><br>
+        <form method="POST" action="{{url_for('searchwithdistance')}}" enctype="multipart/form-data">
+            <td>latitude: <input type="text" name="lat"></td>
+            <td>longitude: <input type="text" name="long"></td>
+            <td>distance: <input type="text" name="dist"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+          <fieldset>
+       <h2>where is closest quake with mag >6</h2><br><br>
+        <form method="POST" action="{{url_for('closestearthqithMag')}}" enctype="multipart/form-data">
+            <td>latitude: <input type="text" name="lat"></td>
+            <td>longitude: <input type="text" name="long"></td><br>
+            <td>distance: <input type="text" name="dist"></td>
+             <td>magnitude: <input type="text" name="mag"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+     <fieldset>
+     <h2>date and mag range</h2><br><br>
+        <form method="POST" action="{{url_for('daterangemag')}}" enctype="multipart/form-data">
+            <td>startdate: <input type="text" name="startdate"></td>
+            <td>enddate: <input type="text" name="enddate"></td><br>
+            <td>magto: <input type="text" name="magto"></td>
+             <td>magfrom: <input type="text" name="magfrom"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+        <fieldset>
+      <h2>Largest quake in last week within 500 km</h2><br><br>
+        <form method="POST" action="{{url_for('searchdistanceweek')}}" enctype="multipart/form-data">
+            <td>latitude: <input type="text" name="lat"></td>
+            <td>longitude: <input type="text" name="long"></td>
+            <td>distance: <input type="text" name="dist"></td><br>
+             <td>startdate: <input type="text" name="startdate"></td>
+            <td>enddate: <input type="text" name="enddate"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+    <fieldset>
+   <h2>mag, range night and Day</h2><br><br>
+        <form method="POST" action="{{url_for('mag_range_nightnDay')}}" enctype="multipart/form-data">
+            <td>magto: <input type="text" name="magto"></td>
+             <td>magfrom: <input type="text" name="magfrom"></td>
+        <input type="submit" value="Search" class="btn btn-primary">
+        </form><br>
+        </fieldset>
+
+
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
